@@ -1,0 +1,58 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.tableCustom {
+    width:80%;
+    border:3px solid #064ef7;
+    /*background-image:url(/Content/Img/grama.gif);*/
+    background-repeat:no-repeat;
+    background-size:100%;
+
+}
+.tableCustom tr {
+    height:80px;
+}
+.tableCustom tr td{
+    border-radius:20px;
+    padding:10px;
+    border:1px solid #000;
+}
+.colorSnake{
+    background-image:url(/Content/Img/cobra.jpg);
+    max-width:80px;
+    width:auto;
+}
+/*.colorDefault{
+    background-color:#fff;
+}*/
+.colorComida {
+    background-image:url(/Content/Img/mouse.gif);
+    background-size:80px;
+}
+#score {
+   border:3px solid #064ef7;
+}
+.colorHead {
+    background-color:#ff0000;
+}
