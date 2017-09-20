@@ -120,9 +120,9 @@ function movimentaSnake() {
         apagaSnake();
         logisticaSnake();
         pintaSnake();
-        if(Snake[0].linha==mxAlime && Snake[0].coluna==myAlime)
-        {
+        if (Snake[0].linha == mxAlime && Snake[0].coluna == myAlime) {
             $("#tabuleiro").children("tr").children("td#" + mxAlime + "_" + myAlime + "").removeClass("colorAlimentacao");
+
         }
     }
 }
