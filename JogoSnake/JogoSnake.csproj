@@ -161,6 +161,7 @@
     <Content Include="Content\Img\grama.gif" />
     <Content Include="Content\Img\mouse.gif" />
     <Content Include="Content\Img\snake.gif" />
+    <Content Include="Content\Img\snake_mouth.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

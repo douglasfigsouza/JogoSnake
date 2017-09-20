@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background:linear-gradient(to right,#808080,#eceef7);
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -24,7 +25,7 @@ textarea {
 }
 .tableCustom {
     width:80%;
-    border:3px solid #064ef7;
+    border:3px solid #eceef7;
     /*background-image:url(/Content/Img/grama.gif);*/
     background-repeat:no-repeat;
     background-size:100%;
@@ -36,24 +37,27 @@ textarea {
 .tableCustom tr td{
     border-radius:20px;
     padding:10px;
-    border:1px solid #000;
+    border:5px groove #eceef7;
 }
 .colorSnake {
+    background: linear-gradient(to right, black, red);
     /*background-image:url(/Content/Img/cobra.jpg);
     max-width:80px;
     width:auto;*/
-    background-color: #000000;
+
 }
-/*.colorDefault{
-    background-color:#fff;
-}*/
 .colorComida {
     background-image:url(/Content/Img/mouse.gif);
     background-size:80px;
 }
-#score {
-   border:3px solid #064ef7;
-}
 .colorHead {
-    background-color:#ff0000;
+    background-color:rgb(255, 0, 0);
+    max-width:80px;
+    width:auto;
+}
+#placar {
+    border: 5px solid #eceef7;
+}
+.colorAlimentacao {
+    background:linear-gradient(to right, #fff,#f84e17);
 }
