@@ -38,10 +38,11 @@ textarea {
     padding:10px;
     border:1px solid #000;
 }
-.colorSnake{
-    background-image:url(/Content/Img/cobra.jpg);
+.colorSnake {
+    /*background-image:url(/Content/Img/cobra.jpg);
     max-width:80px;
-    width:auto;
+    width:auto;*/
+    background-color: #000000;
 }
 /*.colorDefault{
     background-color:#fff;

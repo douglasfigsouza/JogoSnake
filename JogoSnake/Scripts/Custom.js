@@ -1,5 +1,6 @@
 ﻿var Snake = [];
-var direcao = "";
+var colunaAux;
+var direcao = "Down";
 $(document).ready(function () {
     $(document).keydown(function (t) {
         var key = t.which;
@@ -40,115 +41,76 @@ $(document).ready(function () {
 });
 function initSnake() {
     Snake.push({ status: "corpo", linha: 0, coluna: 0 });
-    Snake.push({ status: "cabeça", linha: 0, coluna: 0 });
+    Snake.push({ status: "cabeça", linha: 1, coluna: 0 });
 
     pintaSnake();
 }
-function pintaSnake() {
-    for (var i = 0; i < Snake.length; i++) {
-        switch (direcao) { 
-            case ("Right"):
-                if (Snake[i].status == "cabeça") {
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha) + "_" + (Snake[i].coluna+1) + "").addClass("colorHead");
-                }
-                else{
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha) + "_" + Snake[i].coluna + "").addClass("colorSnake");
-                }
-                Snake[i].coluna = Snake[i].coluna + 1;
-                break;
-            case ("Left"):
-                if (Snake[i].status == "cabeça") {
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha) + "_" + (Snake[i].coluna - 1) + "").addClass("colorHead");
-                }
-                else {
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha) + "_" + Snake[i].coluna + "").addClass("colorSnake");
-                }
-                Snake[i].coluna = Snake[i].coluna - 1;
-                break;
+function move() {
+    for(var i = 0; i < Snake.length -1; i++) {
+        Snake[i].coluna = Snake[i +1].coluna;
+        Snake[i].linha = Snake[i + 1].linha;
+        Snake[i].status = "corpo";
+    }
+    Snake[Snake.length-1].status = "cabeça";
+}
+function logisticaSnake() {
+    move();
+    switch (direcao) {
+        case ("Right"):
+            if (Snake[Snake.length - 1].coluna == 9) {
+                Snake[Snake.length - 1].coluna = 0;
+            } else {
+                Snake[Snake.length - 1].coluna = Snake[Snake.length - 1].coluna + 1;
+            }
+            break;
+        case ("Left"):
+            if (Snake[Snake.length - 1].coluna == 0) {
+                Snake[Snake.length - 1].coluna = 9;
+            }
+            else {
+                Snake[Snake.length - 1].coluna = Snake[Snake.length - 1].coluna - 1;
+            }
+            break;
             case ("Down"):
-                if (Snake[i].status == "cabeça") {
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha+1) + "_" + Snake[i].coluna + "").addClass("colorHead");
+                if (Snake[Snake.length - 1].linha == 9) {
+                    Snake[Snake.length - 1].linha = 0;
                 }
                 else {
-                    $("#tabuleiro").children("tr").children("td#" + Snake[i].linha + "_" + Snake[i].coluna + "").addClass("colorSnake");
+                    Snake[Snake.length - 1].linha = Snake[Snake.length - 1].linha + 1;
                 }
-                Snake[i].linha = Snake[i].linha+1;
                 break;
             case ("Up"):
-                                    verColisao(Snake[i].linha, Snake[i].coluna);
-                if (Snake[i].status == "cabeça") {
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - 1) + "_" + Snake[i].coluna + "").addClass("colorHead");
+                if (Snake[Snake.length - 1].linha == 0) {
+                    Snake[Snake.length - 1].linha = 9;
                 }
                 else {
-                    $("#tabuleiro").children("tr").children("td#" + Snake[i].linha + "_" + Snake[i].coluna + "").addClass("colorSnake");
+                    Snake[Snake.length - 1].linha = Snake[Snake.length - 1].linha - 1;
                 }
-                Snake[i].linha = Snake[i].linha - 1;
                 break;
-        }
-        
     }
-    
-    
+    verColisao(Snake[Snake.length - 1].linha,Snake[Snake.length - 1].coluna);
+}
+function pintaSnake() {
+
+    for (var i = 0; i <= Snake.length - 1; i++)
+    {
+        if (Snake[i].status == "corpo") {
+            $("td#" + (Snake[i].linha) + "_" + Snake[i].coluna + "").addClass("colorHead");
+        }
+
+        if (Snake[i].status == "cabeça") {
+            $("td#" + (Snake[i].linha) + "_" + (Snake[i].coluna) + "").addClass("colorSnake");
+        }
+    }
 }
 function apagaSnake() {
-    for (var i = Snake.length; i >= 0; i--) {
-        if (i == 0) {
-            switch (direcao) {
-                case ("Right"):
-                    verColisao(Snake[i].linha, Snake[i].coluna);
-                    $("#tabuleiro").children("tr").children("td#" + Snake[i].linha + "_" + (Snake[i].coluna - (Snake.length)) + "").removeClass("colorSnake");
-                    $("#tabuleiro").children("tr").children("td#" + Snake[i].linha + "_" + (Snake[i].coluna - (Snake.length)) + "").removeClass("colorHead");
-
-                    for (var i = 1; i <Snake,length-1; i++) {
-                        //alert(((Snake[i].linha-1) - i) + "_" + (Snake[i].coluna - i));
-                        $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - i) + "_" + ((Snake[i].coluna - i)) + "").removeClass("colorSnake");
-                        $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - i) + "_" + ((Snake[i].coluna - i)) + "").removeClass("colorHead");
-
-
-                        $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha + 1) + "_" + (Snake[i].coluna-Snake.length) + "").removeClass("colorSnake");
-                        $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha + 1) + "_" + (Snake[i].coluna -Snake.length) + "").removeClass("colorHead");
-                    }
-                    break;
-                case ("Left"):
-                    verColisao(Snake[i].linha, Snake[i].coluna);
-                    $("#tabuleiro").children("tr").children("td#" + Snake[i].linha + "_" + (Snake[i].coluna + (Snake.length)) + "").removeClass("colorSnake");
-                    $("#tabuleiro").children("tr").children("td#" + Snake[i].linha + "_" + (Snake[i].coluna + (Snake.length)) + "").removeClass("colorHead");
-
-                    //retira classe quando muda pra direita
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - 1) + "_" + (Snake[i].coluna - 1) + "").removeClass("colorSnake");
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - 1) + "_" + (Snake[i].coluna - 1) + "").removeClass("colorHead");
-
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha + 1) + "_" + (Snake[i].coluna - 1) + "").removeClass("colorSnake");
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha + 1) + "_" + (Snake[i].coluna - 1) + "").removeClass("colorHead");
-
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - 1) + "_" + (Snake[i].coluna+1) + "").removeClass("colorSnake");
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - 1) + "_" + (Snake[i].coluna +1) + "").removeClass("colorHead");
-
-                    break;
-                case ("Down"):
-                    verColisao(Snake[i].linha, Snake[i].coluna);
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - Snake.length) + "_" + Snake[i].coluna + "").removeClass("colorSnake");
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - Snake.length) + "_" + Snake[i].coluna + "").removeClass("colorHead");
-
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - 1) + "_" + (Snake[i].coluna - 1) + "").removeClass("colorSnake");
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha - 1) + "_" + (Snake[i].coluna - 1) + "").removeClass("colorHead");
-                    break;
-                case ("Up"):
-                    verColisao(Snake[i].linha, Snake[i].coluna);
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha + Snake.length) + "_" + Snake[i].coluna + "").removeClass("colorSnake");
-                    $("#tabuleiro").children("tr").children("td#" + (Snake[i].linha + Snake.length) + "_" + Snake[i].coluna + "").removeClass("colorHead");
-
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha+1) + "_" + (Snake[i].coluna-1) + "").removeClass("colorSnake");
-                    //$("#tabuleiro").children("tr").children("td#" + (Snake[i].linha + 1) + "_" +(Snake[i].coluna-1) + "").removeClass("colorHead");
-                    break;
-            }
-        }
-    }
+    $("#tabuleiro").children("tr").children("td#" + (Snake[0].linha) + "_" + Snake[0].coluna + "").removeClass("colorHead");
+    $("#tabuleiro").children("tr").children("td#" + (Snake[0].linha) + "_" + Snake[0].coluna+ "").removeClass("colorSnake");
 }
 function movimentaSnake() {
-    pintaSnake();
     apagaSnake();
-
+    logisticaSnake();
+    pintaSnake();
 }
 function geraComida() {
     //cria posições radomicas para geração da comida
@@ -167,6 +129,7 @@ function verColisao(x, y) {
         $("#tabuleiro").children("tr").children("td#" + mx + "_" + my + "").removeClass("colorComida");
         geraComida();
         //adicionando na ultima posiçaõp do vetor
+        debugger;
         Snake.push({ status: "corpo", linha: x, coluna: y });
     }
     else return false;
