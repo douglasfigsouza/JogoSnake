@@ -8,27 +8,30 @@ var bloqueiaDirecao = true;
 
 $(document).ready(function () {
     $(document).keydown(function (t) {
-        dirAnterior = direcao;
         if (bloqueiaDirecao) {
             var key = t.which;
             switch (key) {
                 case 38:
                 case 87:
+                    dirAnterior = direcao;
                     direcao = "Up";
                     bloqueiaDirecao = false;
                     break;
                 case 40:
                 case 83:
+                    dirAnterior = direcao;
                     direcao = "Down";
                     bloqueiaDirecao = false;
                     break;
                 case 37:
                 case 65:
+                    dirAnterior = direcao;
                     direcao = "Left";
                     bloqueiaDirecao = false;
                     break;
                 case 39:
                 case 68:
+                    dirAnterior = direcao;
                     direcao = "Right";
                     bloqueiaDirecao = false;
                     break;
@@ -44,7 +47,7 @@ $(document).ready(function () {
         for (var j = 0; j < 10; j++) {
             tabuleiro += "<td  id=" + i + "_" + j + " class='default'></td>";
         }
-        tabuleiro += "</tr>"
+        tabuleiro += "</tr>";
     }
     tabuleiro += "</tbody></table>";
     $("#containerTabuleiro").append(tabuleiro);
@@ -121,7 +124,6 @@ function moveCabecaSnake() {
             }
             break;
     }
-
     gameOver(Snake[Snake.length - 1].linha, Snake[Snake.length - 1].coluna);
     comer(Snake[Snake.length - 1].linha, Snake[Snake.length - 1].coluna);
 };
@@ -131,7 +133,6 @@ function pintaSnake() {
         if (Snake[i].status == "corpo") {
             $("td#" + (Snake[i].linha) + "_" + Snake[i].coluna + "").attr("class", "colorSnake");
         }
-
         if (Snake[i].status == "cabeça") {
             $("td#" + (Snake[i].linha) + "_" + (Snake[i].coluna) + "").attr("class", "colorHead");
         }
@@ -149,9 +150,9 @@ function movimentaSnake() {
         pintaSnake();
         Timer = setInterval(function () {
             bloqueiaDirecao = true;
-            movimentaSnake()
+            movimentaSnake();
         }, intervalo);
-    }
+     }
 };
 
 function geraComida() {
