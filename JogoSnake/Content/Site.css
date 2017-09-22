@@ -25,26 +25,21 @@ textarea {
 }
 .tableCustom {
     width:80%;
-    border:3px solid #eceef7;
-    /*background-image:url(/Content/Img/grama.gif);*/
+    border:5px double #eceef7;
     background-repeat:no-repeat;
     background-size:100%;
-
 }
 .tableCustom tr {
     height:80px;
 }
 .tableCustom tr td{
+
     border-radius:20px;
     padding:10px;
-    border:5px groove #eceef7;
+    /*border:5px groove #eceef7;*/
 }
 .colorSnake {
-    background: linear-gradient(to right, black, red);
-    /*background-image:url(/Content/Img/cobra.jpg);
-    max-width:80px;
-    width:auto;*/
-
+    background: linear-gradient(to right, black, red, white);
 }
 .colorComida {
     background-image:url(/Content/Img/mouse.gif);
@@ -56,7 +51,7 @@ textarea {
     width:auto;
 }
 #placar {
-    border: 5px solid #eceef7;
+    border:5px double #eceef7;
 }
 .colorAlimentacao {
     background:linear-gradient(to right, #fff,#f84e17);
